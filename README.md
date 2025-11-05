@@ -56,20 +56,10 @@ graph TD
 5. **Cleanup**: Run post-demo cleanup when finished
 
 ### **Phase 0: Pre-Demo Setup** 🔧
-**Commands to run before starting demo:**
-```bash
-# Create and push demo branch (required for MCP PR creation)
-# Use any unique identifier for your demo session
-DEMO_BRANCH="demo-<unique-id>"  # Replace <unique-id> with your choice
-git checkout main
-git checkout -b $DEMO_BRANCH
-git push origin $DEMO_BRANCH
-
-# Examples:
-# DEMO_BRANCH="demo-session-1"
-# DEMO_BRANCH="demo-nov5"
-# DEMO_BRANCH="demo-training"
-# DEMO_BRANCH="demo-$(whoami)"
+**User Prompt:**
+```
+Can you create a demo branch remotely from main and switch to it.
+```
 
 echo "Demo branch created: $DEMO_BRANCH"
 ```
@@ -77,7 +67,7 @@ echo "Demo branch created: $DEMO_BRANCH"
 ### **Phase 1: Issue Discovery** 🔍
 **User Prompt:**
 ```
-"Copilot, I just opened my World Clock website and it looks completely broken - all the beautiful styling is missing and it's just plain HTML. Can you investigate what's wrong with the styling?"
+Copilot, I just opened my World Clock website and it looks completely broken - all the beautiful styling is missing and it's just plain HTML. Can you investigate what's wrong with the styling?
 ```
 
 **Expected AI Response:**
@@ -88,7 +78,7 @@ echo "Demo branch created: $DEMO_BRANCH"
 ### **Phase 2: Issue Management via GitHub MCP** 📝
 **User Prompt:**
 ```
-"Now that we've found the CSS link typo, can you create a GitHub issue to track this bug? Make it a critical priority since it breaks the entire user experience. Please create the issue against the current demo branch (not main)."
+Now that we've found the CSS link typo, can you create a GitHub issue to track this bug? Make it a critical priority since it breaks the entire user experience. Please create the issue against the current demo branch (not main).
 ```
 
 **Expected AI Actions:**
@@ -101,7 +91,7 @@ echo "Demo branch created: $DEMO_BRANCH"
 ### **Phase 3: Branch Management via GitHub MCP** 🌿
 **User Prompt:**
 ```
-"Perfect! Now create a hotfix branch from the current demo branch (not main) linked to this issue so we can work on the fix safely."
+Perfect! Now create a hotfix branch from the current demo branch (not main) linked to this issue so we can work on the fix safely.
 ```
 
 **Expected AI Actions:**
@@ -109,20 +99,10 @@ echo "Demo branch created: $DEMO_BRANCH"
 - Branch name: `fix/css-stylesheet-typo-from-demo` 
 - Link branch to the created issue
 
-### **Phase 3.5: Switch to Hotfix Branch** 🔄
-**User Prompt:**
-```
-"Now let's switch to the hotfix branch so we can work on the fix."
-```
-
-**Expected AI Actions:**
-- Switch to the newly created hotfix branch: `git checkout fix/css-stylesheet-typo-from-demo`
-- Confirm you're now on the correct branch for development work
-
 ### **Phase 4: Local Development** 🛠️
 **User Prompt:**
 ```
-"Great! Now let's fix the actual bug. Can you correct the CSS link typo and verify the fix works?"
+Great! Now let's fix the actual bug. Can you correct the CSS link typo and verify the fix works?
 ```
 
 **Expected AI Actions:**
@@ -133,7 +113,7 @@ echo "Demo branch created: $DEMO_BRANCH"
 ### **Phase 5: Integration via GitHub MCP** 📤
 **User Prompt:**
 ```
-"The fix works perfectly! Now let's commit this change and create a pull request targeting the current demo branch (not main) to get it reviewed and merged."
+The fix works perfectly! Now let's commit this change and create a pull request targeting the current demo branch (not main) to get it reviewed and merged.
 ```
 
 **Expected AI Actions:**
@@ -147,7 +127,7 @@ echo "Demo branch created: $DEMO_BRANCH"
 ### **Phase 6: Completion via GitHub MCP** 🎉
 **User Prompt:**
 ```
-"Excellent! The PR looks good. Can you merge it into the demo branch and clean up the workflow?"
+Excellent! The PR looks good. Can you merge it into the demo branch and clean up the workflow?
 ```
 
 **Expected AI Actions:**
@@ -158,21 +138,9 @@ echo "Demo branch created: $DEMO_BRANCH"
 
 
 ### **Phase 7: Post-Demo Cleanup** 🔧
-**Commands to run after finishing demo:**
-```bash
-# After demo completion, clean up using the SAME unique ID from Phase 0
-DEMO_BRANCH="demo-<unique-id>"  # Use the SAME <unique-id> from Phase 0
-git checkout main
-git branch -D $DEMO_BRANCH
-git push origin --delete $DEMO_BRANCH
-
-# Examples (use the same one you used in Phase 0):
-# DEMO_BRANCH="demo-session-1"
-# DEMO_BRANCH="demo-nov5"
-# DEMO_BRANCH="demo-training"
-# DEMO_BRANCH="demo-$(whoami)"
-
-echo "Cleanup completed for branch: $DEMO_BRANCH"
+**User Prompt:**
+```
+Can you close the issue and now delete the demo branch locally and remotely?
 ```
 
 #### **Benefits:**
