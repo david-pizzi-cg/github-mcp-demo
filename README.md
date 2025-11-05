@@ -88,13 +88,18 @@ Now that we've found the CSS link typo, can you create a GitHub issue to track t
 ### **Phase 3: Branch Management via GitHub MCP** 🌿
 **User Prompt:**
 ```
-Perfect! Now create a hotfix branch from the current demo branch (not main) linked to this issue so we can work on the fix safely.
+Perfect! Now I need to create a branch from the current demo branch that will be properly linked to issue #6. Can you check the issue title and create a branch named using GitHub's convention: {issue-number}-{issue-title-as-slug}? This should be something like "6-critical-css-stylesheet-not-loading-due-to-typo-in-html-link" to match what GitHub would auto-generate.
 ```
 
 **Expected AI Actions:**
+- Use `mcp_github_issue_read` to get the exact issue title
+- Convert title to GitHub's slug format (lowercase, hyphens, no special chars)
 - Use `mcp_github_create_branch` from current demo branch
-- Branch name: `fix/css-stylesheet-typo-from-demo` 
-- Link branch to the created issue
+- **Critical**: Branch name must follow pattern: `{issue-number}-{issue-title-slug}`
+- **Example**: Issue #6 "Critical: CSS stylesheet not loading due to typo in HTML link" 
+  → Branch: `6-critical-css-stylesheet-not-loading-due-to-typo-in-html-link`
+- **Alternative**: Suggest using GitHub UI for automatic branch creation with perfect linking
+- **Best Practice**: Use GitHub UI to create branch from issue, then fetch/checkout locally
 
 ### **Phase 4: Local Development** 🛠️
 **User Prompt:**
@@ -116,8 +121,9 @@ The fix works perfectly! Now let's commit this change and create a pull request 
 **Expected AI Actions:**
 - Use `mcp_github_create_pull_request`
 - **Base branch**: Current demo branch (not main!)
-- **Head branch**: `fix/css-stylesheet-typo-from-demo`
+- **Head branch**: `6-critical-css-stylesheet-not-loading-due-to-typo-in-html-link` (or similar GitHub-generated name)
 - Commit message: "Fix critical CSS stylesheet filename typo"
+- PR description should include "Fixes #6" or "Closes #6" for auto-linking
 - Auto-link PR to the original issue
 - Add detailed PR description
 
@@ -158,6 +164,26 @@ github-mcp-demo/
 └── .vscode/
     └── mcp.json        # MCP Server configuration
 ```
+
+## ⚠️ Important: GitHub MCP vs UI Branch Linking
+
+### **GitHub UI Branch Creation (Recommended for Issue Linking)**
+When you create a branch directly from a GitHub issue via the web UI:
+- ✅ **Auto-generates** proper naming: `{issue-number}-{issue-title-slug}`
+- ✅ **Auto-links** branch to issue in GitHub's backend
+- ✅ **Example**: Issue #6 → Branch `6-critical-css-stylesheet-not-loading-due-to-typo-in-html-link`
+
+### **GitHub MCP Branch Creation (Limited Linking)**
+When using `mcp_github_create_branch`:
+- ❌ **Manual naming** only - no auto-title integration
+- ❌ **No automatic UI linking** (relies on naming conventions)
+- ⚠️ **Workaround**: Use GitHub UI for branch creation, then fetch locally
+
+### **Best Practice for Demo**
+1. Create issue via MCP: `mcp_github_issue_write`
+2. Create branch via **GitHub UI** from the issue (for proper linking)
+3. Fetch and checkout locally: `git fetch origin {branch-name}`
+4. Continue with MCP tools for PR creation and merging
 
 ## 🎯 Learning Objectives
 
