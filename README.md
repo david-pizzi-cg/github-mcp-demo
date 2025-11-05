@@ -61,9 +61,6 @@ graph TD
 Can you create a demo branch remotely from main and switch to it.
 ```
 
-echo "Demo branch created: $DEMO_BRANCH"
-```
-
 ### **Phase 1: Issue Discovery** 🔍
 **User Prompt:**
 ```
